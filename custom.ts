@@ -281,7 +281,7 @@ namespace NinjaBot {
         basic.pause(200);
         pins.servoWritePin(AnalogPin.P12, 110);
         basic.pause(500);
-      /*  music.play(music.createSoundExpression(WaveShape.Square, 5000, 0, 255, 255, 2000, SoundExpressionEffect.None, InterpolationCurve.Linear), music.PlaybackMode.InBackground) */
+        music.play(music.createSoundExpression(WaveShape.Square, 5000, 0, 255, 255, 2000, SoundExpressionEffect.None, InterpolationCurve.Linear), music.PlaybackMode.InBackground) 
         pins.servoWritePin(AnalogPin.P2, 135);
         basic.pause(300);
         pins.analogWritePin(AnalogPin.P2, 0);
@@ -310,5 +310,26 @@ namespace NinjaBot {
 
     }
 
+
+    //% blockId=ninjaBotWalkBackward
+    //% block="Ninja walk balkward"
+
+    export function walkBackward(): void {
+
+        pins.servoWritePin(AnalogPin.P12, 30);
+        pins.servoWritePin(AnalogPin.P8, 30);
+        basic.pause(300);
+        pins.servoWritePin(AnalogPin.P1, 120);
+        basic.pause(300);
+        pins.analogWritePin(AnalogPin.P1, 0);
+        basic.pause(100);
+        pins.servoWritePin(AnalogPin.P12, 150);
+        pins.servoWritePin(AnalogPin.P8, 150);
+        basic.pause(300);
+        pins.servoWritePin(AnalogPin.P2, 60);
+        basic.pause(300);
+        pins.analogWritePin(AnalogPin.P2, 0);
+        basic.pause(100);
+    }
 
 }
