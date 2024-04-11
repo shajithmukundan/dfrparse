@@ -3,6 +3,7 @@
  */
 
 //% weight=100 color=#805e03 icon="\uf21b" block="NinjaBot"
+//% groups="['Robot', 'Calibration', 'Others']" 
 
 /* icon images from https://fontawesome.com/v4/cheatsheet/  */
 
@@ -28,6 +29,7 @@ namespace NinjaBot {
     //% blockId=kitronik_servolite_servos_bias
     //% block="bias %biasDriving"
     //% bias.min=0 bias.max=100
+    //% group="Calibration"
 
     export function biasDriving(bias: number): void {
         if (bias > 100) {
@@ -44,6 +46,7 @@ namespace NinjaBot {
 
     //% blockId=kitronik_servolite_servos_forward
     //% block="drive forward"
+    //% group="Others"
 
     export function forward(): void {
         let P1Output = 0;
@@ -67,6 +70,7 @@ namespace NinjaBot {
 
     //% blockId=kitronik_servolite_servos_backward
     //% block="drive backward"
+    //% group="Others"
 
     export function backward(): void {
         let P1Output = 180;
@@ -90,6 +94,7 @@ namespace NinjaBot {
 
     //% blockId=kitronik_servolite_servos_left
     //% block="turn left"
+    //% group="Others"
 
     export function left(): void {
         pins.servoWritePin(AnalogPin.P1, 0);
@@ -102,8 +107,10 @@ namespace NinjaBot {
 
     //% blockId=kitronik_servolite_servos_right
     //% block="turn right"
+    //% group="Others"
 
     export function right(): void {
+        rollMode();
         pins.servoWritePin(AnalogPin.P1, 180);
         pins.servoWritePin(AnalogPin.P2, 180);
     }
@@ -118,6 +125,7 @@ namespace NinjaBot {
 
     //% blockId=kitronik_servolite_servos_stop
     //% block="Stop Roll"
+    //% group="Robot"
 
     export function stopRoll(): void {
         pins.analogWritePin(AnalogPin.P1, 0);
@@ -131,6 +139,7 @@ namespace NinjaBot {
 
     //% blockId=kitronik_servolite_servos_neutral
     //% block="goto neutral position"
+    //% group="Others"
 
     export function neutral(): void {
         pins.servoWritePin(AnalogPin.P1, 90);
@@ -144,6 +153,8 @@ namespace NinjaBot {
 
     //% blockId=kitronik_servolite_drive_forwards
     //% block="Rolls forwards %howFar|distance" 
+    //% group="Others"
+
     export function driveForwards(howFar: number): void {
         let timeToWait = (howFar * milliSecInASecond) / distancePerSec; // calculation done this way round to avoid zero rounding
         forward();
@@ -158,6 +169,7 @@ namespace NinjaBot {
 
     //% blockId=kitronik_servolite_drive_backwards
     //% block="Rolls backwards %howFar|distance" 
+    //% group="Others"
 
     export function driveBackwards(howFar: number): void {
         let timeToWait = (howFar * milliSecInASecond) / distancePerSec; // calculation done this way round to avoid zero rounding
@@ -176,6 +188,7 @@ namespace NinjaBot {
 
     //% blockId=kitronik_servolite_turn_right
     //% block="turn right %deg|degrees"
+    //% group="Others"
 
     export function turnRight(deg: number): void {
         let timeToWait = (deg * milliSecInASecond) / numberOfDegreesPerSec;// calculation done this way round to avoid zero rounding
@@ -195,6 +208,7 @@ namespace NinjaBot {
 
     //% blockId=kitronik_servolite_turn_left
     //% block="turn left %deg|degrees"
+    //% group="Others"
 
     export function turnLeft(deg: number): void {
         let timeToWait = (deg * milliSecInASecond) / numberOfDegreesPerSec;// calculation done this way round to avoid zero rounding
@@ -212,6 +226,7 @@ namespace NinjaBot {
 
     //% blockId=kitronik_servolite_set_turn_speed_param
     //% block="calibrate turn amount to %degPerSec|degrees per second" 
+    //% group="Calibration"
 
     export function setDegreesPerSecond(degPerSec: number): void {
         numberOfDegreesPerSec = degPerSec
@@ -225,6 +240,7 @@ namespace NinjaBot {
 
     //% blockId=kitronik_servolite_set_movement_speed_param 
     //% block="calibrate drive amount to %distPerSec|mm per second"
+    //% group="Calibration"
 
     export function setDistancePerSecond(distPerSec: number): void {
         distancePerSec = distPerSec
@@ -232,6 +248,7 @@ namespace NinjaBot {
 
     //% blockId=ninjaBotStand
     //% block="Ninja Stand"
+    //% group="Robot"
 
     export function stand(): void {
         basic.pause(400);
@@ -243,6 +260,7 @@ namespace NinjaBot {
 
     //% blockId=ninjaBotRollMode
     //% block="roll mode"
+    //% group="Robot"
 
     export function rollMode(): void {
         basic.pause(400);
@@ -254,8 +272,10 @@ namespace NinjaBot {
 
     //% blockId=ninjaBotLeftKick
     //% block="Ninja left kick"
+    //% group="Robot"
 
     export function leftKick(): void {
+        stand();
         pins.analogWritePin(AnalogPin.P1, 0);
         pins.analogWritePin(AnalogPin.P2, 0);
         basic.pause(1000);
@@ -272,8 +292,10 @@ namespace NinjaBot {
 
     //% blockId=ninjaBotRightKick
     //% block="Ninja right kick"
+    //% group="Robot"
 
     export function rightKick(): void {
+        stand();
         pins.analogWritePin(AnalogPin.P1, 90);
         pins.analogWritePin(AnalogPin.P2, 90);
         basic.pause(300);
@@ -290,29 +312,38 @@ namespace NinjaBot {
 
     //% blockId=ninjaBotWalkForward
     //% block="Ninja walk forward"
+    //% group="Robot"
 
     export function walkForward(): void {
         
-        pins.servoWritePin(AnalogPin.P12, 30);
-        pins.servoWritePin(AnalogPin.P8, 30);
+        pins.servoWritePin(AnalogPin.P12, 60);
+        pins.servoWritePin(AnalogPin.P8, 120);
+        pins.servoWritePin(AnalogPin.P1, 90);
+        pins.servoWritePin(AnalogPin.P2, 90);
+        basic.pause(300);
+        pins.servoWritePin(AnalogPin.P8, 60);
         basic.pause(300);
         pins.servoWritePin(AnalogPin.P1, 60);
         basic.pause(300);
-        pins.analogWritePin(AnalogPin.P1, 0);
-        basic.pause(100);
-        pins.servoWritePin(AnalogPin.P12, 150);
-        pins.servoWritePin(AnalogPin.P8, 150);
+        pins.servoWritePin(AnalogPin.P1, 90);
+        pins.servoWritePin(AnalogPin.P8, 120);
         basic.pause(300);
-        pins.servoWritePin(AnalogPin.P2, 120);
+        pins.servoWritePin(AnalogPin.P12, 60);
+        pins.servoWritePin(AnalogPin.P8, 120);
         basic.pause(300);
-        pins.analogWritePin(AnalogPin.P2, 0);
-        basic.pause(100);
+        pins.servoWritePin(AnalogPin.P12, 120);
+        basic.pause(300);
+        pins.analogWritePin(AnalogPin.P2, 120);
+        basic.pause(300);
+        pins.servoWritePin(AnalogPin.P2, 90);
+        pins.servoWritePin(AnalogPin.P12, 120);
 
     }
 
 
     //% blockId=ninjaBotWalkBackward
-    //% block="Ninja walk balkward"
+    //% block="Ninja walk backward"
+    //% group="Robot"
 
     export function walkBackward(): void {
 
@@ -331,5 +362,49 @@ namespace NinjaBot {
         pins.analogWritePin(AnalogPin.P2, 0);
         basic.pause(100);
     }
+
+    //% blockId=ninjaBotSkatebackward
+    //% block="Ninja skate backward"
+    //% group="Robot"
+
+    export function Skatebackward(): void {
+        stand();
+        pins.servoWritePin(AnalogPin.P1, 180);
+        pins.servoWritePin(AnalogPin.P2, 0);
+    }
+
+
+    //% blockId=ninjaBotSkateforward
+    //% block="Ninja skate forward"
+    //% group="Robot"
+
+    export function Skateforward(): void {
+        stand();
+        pins.servoWritePin(AnalogPin.P1, 0);
+        pins.servoWritePin(AnalogPin.P2, 180);
+    }
+
+    //% blockId=ninjaBotRollforward
+    //% block="Ninja Roll forward"
+    //% group="Robot"
+
+    export function rollForward(): void {
+        rollMode();
+        basic.pause(500);
+        pins.servoWritePin(AnalogPin.P1, 0);
+        pins.servoWritePin(AnalogPin.P2, 180);
+    }
+
+    //% blockId=ninjaBotRollbackward
+    //% block="Ninja Roll backward"
+    //% group="Robot"
+    
+    export function rollBackward(): void {
+        rollMode();
+        basic.pause(500);
+        pins.servoWritePin(AnalogPin.P1, 180);
+        pins.servoWritePin(AnalogPin.P2, 0);
+    }
+
 
 }
