@@ -278,14 +278,14 @@ namespace NinjaBot {
         stand();
         pins.analogWritePin(AnalogPin.P1, 0);
         pins.analogWritePin(AnalogPin.P2, 0);
-        basic.pause(1000);
+        basic.pause(100);
         pins.servoWritePin(AnalogPin.P12, 0); /* left foot */ 
-        basic.pause(500);
+        // basic.pause(200);
         pins.servoWritePin(AnalogPin.P8, 70); /* right foot */
         basic.pause(500);
         music.play(music.createSoundExpression(WaveShape.Square, 5000, 0, 255, 255, 2000, SoundExpressionEffect.None, InterpolationCurve.Linear), music.PlaybackMode.InBackground)
-        pins.servoWritePin(AnalogPin.P1, 135);
-        basic.pause(1500);
+        pins.servoWritePin(AnalogPin.P1, 45);
+        basic.pause(1000);
         pins.analogWritePin(AnalogPin.P1, 0);             
         
     }
@@ -296,16 +296,16 @@ namespace NinjaBot {
 
     export function rightKick(): void {
         stand();
-        pins.analogWritePin(AnalogPin.P1, 90);
-        pins.analogWritePin(AnalogPin.P2, 90);
-        basic.pause(300);
+        pins.analogWritePin(AnalogPin.P1, 0);
+        pins.analogWritePin(AnalogPin.P2, 0);
+        basic.pause(100);
         pins.servoWritePin(AnalogPin.P8, 180);
-        basic.pause(200);
+        // basic.pause(200);
         pins.servoWritePin(AnalogPin.P12, 110);
         basic.pause(500);
         music.play(music.createSoundExpression(WaveShape.Square, 5000, 0, 255, 255, 2000, SoundExpressionEffect.None, InterpolationCurve.Linear), music.PlaybackMode.InBackground) 
         pins.servoWritePin(AnalogPin.P2, 135);
-        basic.pause(300);
+        basic.pause(1000);
         pins.analogWritePin(AnalogPin.P2, 0);
     }
 
@@ -314,15 +314,27 @@ namespace NinjaBot {
     //% group="Robot"
 
     export function walkForward(): void {
+
+        let P1Output = 60;
+        let P2Output = 120;
+
+        if (biasToApply < 50) {
+            // Want to move 180 towards 90
+            P2Output -= 50 - biasToApply;
+        } else if (biasToApply > 50) {
+            // Want to move 0 towards 90
+            P1Output += biasToApply - 50;
+        }
         
         pins.servoWritePin(AnalogPin.P12, 60);
         pins.servoWritePin(AnalogPin.P8, 120);
         pins.servoWritePin(AnalogPin.P1, 90);
         pins.servoWritePin(AnalogPin.P2, 90);
         basic.pause(300);
+
         pins.servoWritePin(AnalogPin.P8, 60);
         basic.pause(300);
-        pins.servoWritePin(AnalogPin.P1, 60);
+        pins.servoWritePin(AnalogPin.P1, P1Output);
         basic.pause(300);
         pins.servoWritePin(AnalogPin.P1, 90);
         pins.servoWritePin(AnalogPin.P8, 120);
@@ -332,7 +344,7 @@ namespace NinjaBot {
         basic.pause(300);
         pins.servoWritePin(AnalogPin.P12, 120);
         basic.pause(300);
-        pins.analogWritePin(AnalogPin.P2, 120);
+        pins.analogWritePin(AnalogPin.P2, P2Output);
         basic.pause(300);
         pins.servoWritePin(AnalogPin.P2, 90);
         pins.servoWritePin(AnalogPin.P12, 120);
@@ -345,20 +357,40 @@ namespace NinjaBot {
 
     export function walkBackward(): void {
 
-        pins.servoWritePin(AnalogPin.P12, 30);
-        pins.servoWritePin(AnalogPin.P8, 30);
+        let P1Output = 120;
+        let P2Output = 60;
+
+        if (biasToApply < 50) {
+            // Want to move 180 towards 90
+            P2Output -= 50 - biasToApply;
+        } else if (biasToApply > 50) {
+            // Want to move 0 towards 90
+            P1Output += biasToApply - 50;
+        }
+
+        pins.servoWritePin(AnalogPin.P12, 60);
+        pins.servoWritePin(AnalogPin.P8, 120);
+        pins.servoWritePin(AnalogPin.P1, 90);
+        pins.servoWritePin(AnalogPin.P2, 90);
         basic.pause(300);
-        pins.servoWritePin(AnalogPin.P1, 120);
+
+        pins.servoWritePin(AnalogPin.P8, 60);
         basic.pause(300);
-        pins.analogWritePin(AnalogPin.P1, 0);
-        basic.pause(100);
-        pins.servoWritePin(AnalogPin.P12, 150);
-        pins.servoWritePin(AnalogPin.P8, 150);
+        pins.servoWritePin(AnalogPin.P1, P1Output);
         basic.pause(300);
-        pins.servoWritePin(AnalogPin.P2, 60);
+        pins.servoWritePin(AnalogPin.P1, 90);
+        pins.servoWritePin(AnalogPin.P8, 120);
         basic.pause(300);
-        pins.analogWritePin(AnalogPin.P2, 0);
-        basic.pause(100);
+        pins.servoWritePin(AnalogPin.P12, 60);
+        pins.servoWritePin(AnalogPin.P8, 120);
+        basic.pause(300);
+        pins.servoWritePin(AnalogPin.P12, 120);
+        basic.pause(300);
+        pins.analogWritePin(AnalogPin.P2, P2Output);
+        basic.pause(300);
+        pins.servoWritePin(AnalogPin.P2, 90);
+        pins.servoWritePin(AnalogPin.P12, 120);
+
     }
 
     //% blockId=ninjaBotSkatebackward
@@ -366,9 +398,21 @@ namespace NinjaBot {
     //% group="Robot"
 
     export function Skatebackward(): void {
+
+        let P1Output = 180;
+        let P2Output = 0;
+
+        if (biasToApply < 50) {
+            // Want to move 180 towards 90
+            P2Output -= 50 - biasToApply;
+        } else if (biasToApply > 50) {
+            // Want to move 0 towards 90
+            P1Output += biasToApply - 50;
+        }
+
         stand();
-        pins.servoWritePin(AnalogPin.P1, 180);
-        pins.servoWritePin(AnalogPin.P2, 0);
+        pins.servoWritePin(AnalogPin.P1, P1Output);
+        pins.servoWritePin(AnalogPin.P2, P2Output);
     }
 
 
@@ -377,9 +421,21 @@ namespace NinjaBot {
     //% group="Robot"
 
     export function Skateforward(): void {
+
+        let P1Output = 0;
+        let P2Output = 180;
+
+        if (biasToApply < 50) {
+            // Want to move 180 towards 90
+            P2Output -= 50 - biasToApply;
+        } else if (biasToApply > 50) {
+            // Want to move 0 towards 90
+            P1Output += biasToApply - 50;
+        }
+
         stand();
-        pins.servoWritePin(AnalogPin.P1, 0);
-        pins.servoWritePin(AnalogPin.P2, 180);
+        pins.servoWritePin(AnalogPin.P1, P1Output);
+        pins.servoWritePin(AnalogPin.P2, P2Output);
     }
 
     //% blockId=ninjaBotRollforward
@@ -387,10 +443,22 @@ namespace NinjaBot {
     //% group="Robot"
 
     export function rollForward(): void {
+
+        let P1Output = 0;
+        let P2Output = 180;
+
+        if (biasToApply < 50) {
+            // Want to move 180 towards 90
+            P2Output -= 50 - biasToApply;
+        } else if (biasToApply > 50) {
+            // Want to move 0 towards 90
+            P1Output += biasToApply - 50;
+        }
+
         rollMode();
         basic.pause(500);
-        pins.servoWritePin(AnalogPin.P1, 0);
-        pins.servoWritePin(AnalogPin.P2, 180);
+        pins.servoWritePin(AnalogPin.P1, P1Output);
+        pins.servoWritePin(AnalogPin.P2, P2Output);
     }
 
     //% blockId=ninjaBotRollbackward
@@ -398,10 +466,22 @@ namespace NinjaBot {
     //% group="Robot"
     
     export function rollBackward(): void {
+
+        let P1Output = 180;
+        let P2Output = 0;
+
+        if (biasToApply < 50) {
+            // Want to move 180 towards 90
+            P2Output -= 50 - biasToApply;
+        } else if (biasToApply > 50) {
+            // Want to move 0 towards 90
+            P1Output += biasToApply - 50;
+        }
+
         rollMode();
-        basic.pause(500);
-        pins.servoWritePin(AnalogPin.P1, 180);
-        pins.servoWritePin(AnalogPin.P2, 0);
+        basic.pause(500);   
+        pins.servoWritePin(AnalogPin.P1, P1Output);
+        pins.servoWritePin(AnalogPin.P2, P2Output);
     }
 
 
