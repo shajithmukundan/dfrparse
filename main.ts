@@ -1,12 +1,28 @@
+Andee.WidgetEvent(WidgetId.Widget_2, function () {
+    if (Andee.getSlider() == 1) {
+        NinjaBot.rollForward()
+    } else if (Andee.getSlider() == 0) {
+        NinjaBot.stopRoll()
+    } else if (Andee.getSlider() == -1) {
+        NinjaBot.rollBackward()
+    }
+})
+Andee.WidgetEvent(WidgetId.Widget_4, function () {
+    if (Andee.getSlider() == 1) {
+        NinjaBot.rightKick()
+    } else if (Andee.getSlider() == 0) {
+        NinjaBot.leftKick()
+    }
+})
 Andee.WidgetEvent(WidgetId.Widget_1, function () {
     Choose_Mode = Andee.getSlider()
     if (Andee.getSlider() == 1) {
         basic.showLeds(`
             # . . # .
-            # . # . .
-            # # # . .
+            . # . # .
+            # # # # .
             # . . # .
-            # # # . .
+            . # # # .
             `)
         NinjaBot.rollMode()
     } else if (Andee.getSlider() == 2) {
@@ -36,6 +52,26 @@ Andee.WidgetEvent(WidgetId.Widget_1, function () {
             . # # # .
             `)
         NinjaBot.stand()
+    }
+})
+Andee.WidgetEvent(WidgetId.Widget_5, function () {
+    if (Andee.getSlider() == 1) {
+        NinjaBot.Skateforward()
+    } else if (Andee.getSlider() == 0) {
+        NinjaBot.stand()
+    } else if (Andee.getSlider() == -1) {
+        NinjaBot.Skatebackward()
+    }
+})
+Andee.WidgetEvent(WidgetId.Widget_3, function () {
+    if (Andee.getSlider() <= 0) {
+        for (let index = 0; index < Math.abs(Andee.getSlider()); index++) {
+            NinjaBot.walkBackward()
+        }
+    } else if (Andee.getSlider() > 0) {
+        for (let index = 0; index < Andee.getSlider(); index++) {
+            NinjaBot.walkForward()
+        }
     }
 })
 let Choose_Mode = 0
@@ -69,15 +105,15 @@ WidgetColour.Red,
 let Walk = Andee.createSliderWidget(
 WidgetId.Widget_3,
 WidgetTypeInput.Slider,
-WidgetPosition.Row2_Column2,
-WidgetLength.Half,
+WidgetPosition.Row2_Column0,
+WidgetLength.Full,
 WidgetColour.Red,
 "Walk",
 "Walk",
 "0",
-1,
--1,
-2
+20,
+-20,
+40
 )
 let Kick = Andee.createSliderWidget(
 WidgetId.Widget_4,
@@ -89,8 +125,8 @@ WidgetColour.Yellow,
 "Kick",
 "0",
 1,
--1,
-2
+0,
+1
 )
 let Skate = Andee.createSliderWidget(
 WidgetId.Widget_5,
@@ -106,5 +142,9 @@ WidgetColour.Dark_Orange,
 2
 )
 basic.forever(function () {
-	
+    Mode.update()
+    Roll.update()
+    Walk.update()
+    Kick.update()
+    Skate.update()
 })
