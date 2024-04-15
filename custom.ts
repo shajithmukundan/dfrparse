@@ -404,10 +404,10 @@ namespace NinjaBot {
 
         if (biasToApply < 50) {
             // Want to move 180 towards 90
-            P2Output -= 50 - biasToApply;
+            P1Output -= 50 - biasToApply;
         } else if (biasToApply > 50) {
             // Want to move 0 towards 90
-            P1Output += biasToApply - 50;
+            P2Output += biasToApply - 50;
         }
 
         stand();
@@ -447,12 +447,12 @@ namespace NinjaBot {
         let P1Output = 0;
         let P2Output = 180;
 
-        if (biasToApply < 50) {
-            // Want to move 180 towards 90
-            P2Output -= 50 - biasToApply;
-        } else if (biasToApply > 50) {
+        if (biasToApply > 50) {
             // Want to move 0 towards 90
-            P1Output += biasToApply - 50;
+            P1Output -= 50 - biasToApply;
+        } else if (biasToApply < 50) {
+            // Want to move 180 towards 90
+            P2Output += biasToApply - 50;
         }
 
         rollMode();
@@ -472,10 +472,10 @@ namespace NinjaBot {
 
         if (biasToApply < 50) {
             // Want to move 180 towards 90
-            P2Output -= 50 - biasToApply;
+            P1Output -= 50 - biasToApply;
         } else if (biasToApply > 50) {
             // Want to move 0 towards 90
-            P1Output += biasToApply - 50;
+            P2Output += biasToApply - 50;
         }
 
         rollMode();

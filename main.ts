@@ -11,6 +11,8 @@ Andee.WidgetEvent(WidgetId.Widget_4, function () {
     if (Andee.getSlider() == 1) {
         NinjaBot.rightKick()
     } else if (Andee.getSlider() == 0) {
+        NinjaBot.stand()
+    } else if (Andee.getSlider() == -1) {
         NinjaBot.leftKick()
     }
 })
@@ -75,6 +77,7 @@ Andee.WidgetEvent(WidgetId.Widget_3, function () {
     }
 })
 let Choose_Mode = 0
+NinjaBot.biasDriving(30)
 Andee.begin()
 let Mode = Andee.createSliderWidget(
 WidgetId.Widget_1,
@@ -94,7 +97,7 @@ WidgetId.Widget_2,
 WidgetTypeInput.Slider,
 WidgetPosition.Row1_Column1,
 WidgetLength.Half,
-WidgetColour.Red,
+WidgetColour.Orange,
 "Roll",
 "Roll",
 "0",
@@ -107,7 +110,7 @@ WidgetId.Widget_3,
 WidgetTypeInput.Slider,
 WidgetPosition.Row2_Column0,
 WidgetLength.Full,
-WidgetColour.Red,
+WidgetColour.Green,
 "Walk",
 "Walk",
 "0",
@@ -125,7 +128,7 @@ WidgetColour.Yellow,
 "Kick",
 "0",
 1,
-0,
+-1,
 1
 )
 let Skate = Andee.createSliderWidget(
@@ -133,7 +136,7 @@ WidgetId.Widget_5,
 WidgetTypeInput.Slider,
 WidgetPosition.Row3_Column2,
 WidgetLength.Half,
-WidgetColour.Dark_Orange,
+WidgetColour.Magenta,
 "Skate",
 "Skate",
 "0",
