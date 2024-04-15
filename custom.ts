@@ -3,7 +3,7 @@
  */
 
 //% weight=100 color=#805e03 icon="\uf21b" block="NinjaBot"
-//% groups="['Robot', 'Calibration', 'Others']" 
+//% groups="['Robot','Calibration','Others']" 
 
 /* icon images from https://fontawesome.com/v4/cheatsheet/  */
 
@@ -307,7 +307,6 @@ namespace NinjaBot {
         pins.servoWritePin(AnalogPin.P2, 135);
         basic.pause(300);
         pins.analogWritePin(AnalogPin.P2, 0);
-
     }
 
     //% blockId=ninjaBotWalkForward
@@ -339,7 +338,6 @@ namespace NinjaBot {
         pins.servoWritePin(AnalogPin.P12, 120);
 
     }
-
 
     //% blockId=ninjaBotWalkBackward
     //% block="Ninja walk backward"
@@ -408,3 +406,4 @@ namespace NinjaBot {
 
 
 }
+
