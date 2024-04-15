@@ -1,85 +1,110 @@
-Andee.WidgetEvent(WidgetId.Widget_5, function () {
-    NinjaBot.rollMode()
-    if (Andee.getSlider() == 0) {
-        NinjaBot.stopRoll()
-    }
-    if (Andee.getSlider() == 1) {
-        NinjaBot.rollForward()
-    }
-    if (Andee.getSlider() == -1) {
-        NinjaBot.rollBackward()
-    }
-})
-Andee.WidgetEvent(WidgetId.Widget_4, function () {
-    NinjaBot.rollMode()
-})
 Andee.WidgetEvent(WidgetId.Widget_1, function () {
-    NinjaBot.leftKick()
+    Choose_Mode = Andee.getSlider()
+    if (Andee.getSlider() == 1) {
+        basic.showLeds(`
+            # . . # .
+            # . # . .
+            # # # . .
+            # . . # .
+            # # # . .
+            `)
+        NinjaBot.rollMode()
+    } else if (Andee.getSlider() == 2) {
+        basic.showLeds(`
+            # . . . #
+            # # . # #
+            # . # . #
+            # . . . #
+            # . . . #
+            `)
+        NinjaBot.stand()
+    } else if (Andee.getSlider() == 3) {
+        basic.showLeds(`
+            # . . # .
+            . # . # .
+            . . # # .
+            . # . # .
+            # . . # .
+            `)
+        NinjaBot.stand()
+    } else if (Andee.getSlider() == 4) {
+        basic.showLeds(`
+            . . # # #
+            . # . . .
+            . . # # .
+            . . . . #
+            . # # # .
+            `)
+        NinjaBot.stand()
+    }
 })
-Andee.WidgetEvent(WidgetId.Widget_3, function () {
-    NinjaBot.stand()
-})
-Andee.WidgetEvent(WidgetId.Widget_2, function () {
-    NinjaBot.rightKick()
-})
+let Choose_Mode = 0
 Andee.begin()
-let Left_Kick = Andee.createWidget(
+let Mode = Andee.createSliderWidget(
 WidgetId.Widget_1,
-WidgetType.Button,
+WidgetTypeInput.Slider,
 WidgetPosition.Row0_Column0,
-WidgetLength.Half,
+WidgetLength.Full,
 WidgetColour.Red,
-"Left Kick",
-"LK",
-"Units"
+"Select Mode",
+"Mode",
+"1",
+4,
+1,
+3
 )
-let Right_Kick = Andee.createWidget(
+let Roll = Andee.createSliderWidget(
 WidgetId.Widget_2,
-WidgetType.Button,
-WidgetPosition.Row0_Column2,
+WidgetTypeInput.Slider,
+WidgetPosition.Row1_Column1,
 WidgetLength.Half,
 WidgetColour.Red,
-"Right Kick",
-"RK",
-"Units"
+"Roll",
+"Roll",
+"0",
+1,
+-1,
+2
 )
-let Stand = Andee.createWidget(
+let Walk = Andee.createSliderWidget(
 WidgetId.Widget_3,
-WidgetType.Button,
-WidgetPosition.Row2_Column0,
-WidgetLength.Half,
-WidgetColour.Green,
-"Stand",
-"Stand",
-"Units"
-)
-let RollMode = Andee.createWidget(
-WidgetId.Widget_4,
-WidgetType.Button,
+WidgetTypeInput.Slider,
 WidgetPosition.Row2_Column2,
 WidgetLength.Half,
-WidgetColour.Green,
-"RollMode",
-"RollMode",
-"Units"
+WidgetColour.Red,
+"Walk",
+"Walk",
+"0",
+1,
+-1,
+2
 )
-let RollSpeed = Andee.createSliderWidget(
+let Kick = Andee.createSliderWidget(
+WidgetId.Widget_4,
+WidgetTypeInput.Slider,
+WidgetPosition.Row3_Column0,
+WidgetLength.Half,
+WidgetColour.Yellow,
+"Kick",
+"Kick",
+"0",
+1,
+-1,
+2
+)
+let Skate = Andee.createSliderWidget(
 WidgetId.Widget_5,
 WidgetTypeInput.Slider,
-WidgetPosition.Row3_Column1,
+WidgetPosition.Row3_Column2,
 WidgetLength.Half,
-WidgetColour.Indigo,
-"RollSpeed",
-"Units",
+WidgetColour.Dark_Orange,
+"Skate",
+"Skate",
 "0",
 1,
 -1,
 2
 )
 basic.forever(function () {
-    Left_Kick.update()
-    Right_Kick.update()
-    RollMode.update()
-    Stand.update()
-    RollSpeed.update()
+	
 })
